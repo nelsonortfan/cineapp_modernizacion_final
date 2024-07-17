@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -22,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import net.itinajero.app.cineapp.model.Pelicula;
@@ -84,14 +85,16 @@ public class PeliculasController {
 	 * @return
 	 */
 	@PostMapping(value = "/save")
-	public @ResponseBody Pelicula guardar(@ModelAttribute Pelicula pelicula, BindingResult result,
+	public @ResponseBody Pelicula guardar(String jsonPelicula,
 			@RequestParam("archivoImagen") MultipartFile multiPart, HttpServletRequest request) {	
 		
-		if (result.hasErrors()){
-			
-			System.out.println("Existieron errores");
-			return null;
-		}	
+		Pelicula pelicula = null;
+	    try {
+	    	pelicula = new ObjectMapper().readValue(jsonPelicula, Pelicula.class);
+	    	System.out.println(pelicula);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 		
 		if (!multiPart.isEmpty()) {
 			String nombreImagen = Utileria.guardarImagen(multiPart,request);

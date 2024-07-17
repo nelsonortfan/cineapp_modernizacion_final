@@ -22,8 +22,8 @@ public class PeliculasServiceJPA implements IPeliculasService {
 	private PeliculasRepository peliculasRepo;
 	
 	@Override
-	public void insertar(Pelicula pelicula) {
-		peliculasRepo.save(pelicula);
+	public Pelicula insertar(Pelicula pelicula) {
+		return peliculasRepo.save(pelicula);
 	}
 
 

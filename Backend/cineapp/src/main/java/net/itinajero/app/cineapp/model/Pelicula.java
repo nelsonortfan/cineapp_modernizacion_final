@@ -5,6 +5,8 @@ package net.itinajero.app.cineapp.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class Pelicula {
 	private String clasificacion;
 	private String genero;
 	private String imagen = "cinema.png"; // imagen por default
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaEstreno;
 	private String estatus = "Activa"; // posibles valores: Activa, Inactiva
 

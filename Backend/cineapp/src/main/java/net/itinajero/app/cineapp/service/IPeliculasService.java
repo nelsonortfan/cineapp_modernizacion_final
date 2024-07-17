@@ -10,7 +10,7 @@ import net.itinajero.app.cineapp.model.Pelicula;
 
 
 public interface IPeliculasService {
-	void insertar(Pelicula pelicula);	
+	Pelicula insertar(Pelicula pelicula);	
 	List<Pelicula> buscarTodas();
 	Pelicula buscarPorId(int idPelicula);
 	List<String> buscarGeneros();

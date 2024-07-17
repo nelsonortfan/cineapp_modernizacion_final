@@ -10,18 +10,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpServletRequest;
 import net.itinajero.app.cineapp.model.Pelicula;
 import net.itinajero.app.cineapp.service.IDetallesService;
 import net.itinajero.app.cineapp.service.IPeliculasService;
+import net.itinajero.app.cineapp.utils.Utileria;
 
 @Controller
 @RequestMapping(value="/peliculas")
@@ -43,7 +49,7 @@ public class PeliculasController {
 	@GetMapping(value = "/index")
 	public @ResponseBody List<Pelicula> mostrarIndex() {
 		List<Pelicula> lista = servicePeliculas.buscarTodas();
-		
+		System.out.println(lista);
 		return lista;
 	}
 	
@@ -77,14 +83,14 @@ public class PeliculasController {
 	 * @param request
 	 * @return
 	 */
-/*	@PostMapping(value = "/save")
-	public String guardar(@ModelAttribute Pelicula pelicula, BindingResult result, Model model,
-			@RequestParam("archivoImagen") MultipartFile multiPart, HttpServletRequest request, RedirectAttributes attributes) {	
+	@PostMapping(value = "/save")
+	public @ResponseBody Pelicula guardar(@ModelAttribute Pelicula pelicula, BindingResult result,
+			@RequestParam("archivoImagen") MultipartFile multiPart, HttpServletRequest request) {	
 		
 		if (result.hasErrors()){
 			
 			System.out.println("Existieron errores");
-			return "peliculas/formPelicula";
+			return null;
 		}	
 		
 		if (!multiPart.isEmpty()) {
@@ -98,12 +104,10 @@ public class PeliculasController {
 	    serviceDetalles.insertar(pelicula.getDetalle());
 	    
 		// Como el Detalle ya tiene id, ya podemos guardar la pelicula
-		servicePeliculas.insertar(pelicula);
-		attributes.addFlashAttribute("msg", "Los datos de la pelicula fueron guardados!");
+		Pelicula peliculaSaved = servicePeliculas.insertar(pelicula);
 			
-		//return "redirect:/peliculas/index";
-		return "redirect:/peliculas/indexPaginate";		
-	}*/
+		return peliculaSaved;		
+	}
 	
 	/**
 	 * Metodo que muestra el formulario para editar una pelicula

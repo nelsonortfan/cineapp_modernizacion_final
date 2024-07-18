@@ -25,10 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import net.itinajero.app.cineapp.model.Pelicula;
+import net.itinajero.app.cineapp.service.FileService;
 import net.itinajero.app.cineapp.service.IDetallesService;
 import net.itinajero.app.cineapp.service.IPeliculasService;
-import net.itinajero.app.cineapp.utils.Utileria;
 
 @Controller
 @RequestMapping(value="/peliculas")
@@ -38,9 +39,19 @@ public class PeliculasController {
 	@Autowired
 	private IDetallesService serviceDetalles;
 	
+	private final FileService fileService;
+	
 	// Inyectamos una instancia desde nuestro Root ApplicationContext
     @Autowired
 	private IPeliculasService servicePeliculas;
+	
+	public PeliculasController(IDetallesService serviceDetalles, FileService fileService,
+			IPeliculasService servicePeliculas) {
+		super();
+		this.serviceDetalles = serviceDetalles;
+		this.fileService = fileService;
+		this.servicePeliculas = servicePeliculas;
+	}
 	
     /**
 	 * Metodo que muestra la lista de peliculas
@@ -97,7 +108,7 @@ public class PeliculasController {
 	    }
 		
 		if (!multiPart.isEmpty()) {
-			String nombreImagen = Utileria.guardarImagen(multiPart,request);
+			String nombreImagen = fileService.uploadFile(multiPart).getFilePath();
 			if (nombreImagen!=null){ // La imagen si se subio				
 				pelicula.setImagen(nombreImagen); // Asignamos el nombre de la imagen
 			}	

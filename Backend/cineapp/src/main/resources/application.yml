@@ -16,3 +16,11 @@ spring:
     date-format: yyyy-MM-dd
 server:
   port: 8081
+  
+aws:
+  s3:
+    bucketName: uploadmodernized
+    accessKey: xx
+    secretKey: xx
+    token: xx
+    region: us-east-1

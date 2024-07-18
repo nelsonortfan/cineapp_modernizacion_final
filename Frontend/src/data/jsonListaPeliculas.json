@@ -1,0 +1,138 @@
+[
+    {
+        "id": 1,
+        "titulo": "Kong La Isla Calavera",
+        "duracion": 118,
+        "clasificacion": "B",
+        "genero": "Accion y Aventura",
+        "imagen": "kong.png",
+        "fechaEstreno": "2017-10-20",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 1,
+            "director": "Jordan Vogt-Roberts",
+            "actores": "Samuel L. Jackson,Tom Hiddleston,Brie Larson,Toby Kebbell",
+            "sinopsis": "Kong: La Isla Calavera reimagina el origen del mítico Kong en una irresistible aventura original del director Jordan Vogt-Roberts. En la película, un diverso equipo de exploradores es reunido para aventurarse en el interior de una isla del Pacífico —tan bella como traicionera— que no aparece en los mapas, sin saber que están invadiendo los dominios del mítico Kong.",
+            "trailer": "https://www.youtube.com/embed/86jhW2gPc84"
+        }
+    },
+    {
+        "id": 2,
+        "titulo": "Life: Vida Inteligente",
+        "duracion": 104,
+        "clasificacion": "B",
+        "genero": "Drama",
+        "imagen": "life.png",
+        "fechaEstreno": "2017-10-20",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 2,
+            "director": "Daniel Espinosa",
+            "actores": "Jake Gyllenhaal, Ryan Reynolds, Rebecca Ferguson",
+            "sinopsis": "Seis miembros de la tripulación de la Estación Espacial Internacional que están a punto de lograr uno de los descubrimientos más importantes en la historia humana: la primera evidencia de vida extraterrestre en Marte. A medida que el equipo comienza a investigar y sus métodos tienen consecuencias inesperadas, la forma viviente demostrará ser más inteligente de lo que cualquiera esperaba.",
+            "trailer": "https://www.youtube.com/embed/_cq1XIVXdjU"
+        }
+    },
+    {
+        "id": 3,
+        "titulo": "La Bella y La Bestia",
+        "duracion": 132,
+        "clasificacion": "A",
+        "genero": "Infantil",
+        "imagen": "bella.png",
+        "fechaEstreno": "2017-10-20",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 3,
+            "director": "Bill Condon",
+            "actores": "Dan Stevens,Emma Watson,Luke Evans",
+            "sinopsis": "LA BELLA Y LA BESTIA, de Disney, es una adaptación de acción real de la película animada, que revive a los queridos personajes del clásico cuento de Disney para una audiencia contemporánea, manteniendo la música original e incorporando varias nuevas canciones.",
+            "trailer": "https://www.youtube.com/embed/4D8N06nx9rs"
+        }
+    },
+    {
+        "id": 4,
+        "titulo": "Contratiempo",
+        "duracion": 106,
+        "clasificacion": "B",
+        "genero": "Thriller",
+        "imagen": "contratiempo.png",
+        "fechaEstreno": "2017-10-22",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 4,
+            "director": "Oriol Paulo",
+            "actores": "Mario Casas, Bárbara Lennie, José Coronado, Ana Wagener",
+            "sinopsis": "Adrián Doria, un joven y exitoso empresario, despierta en la habitación de un hotel junto al cadáver de su amante. Acusado de asesinato, decide contratar los servicios de Virginia Goodman, la mejor preparadora de testigos del país. En el transcurso de una noche, asesora y cliente trabajarán para encontrar una duda razonable que le libre de la cárcel.",
+            "trailer": "https://www.youtube.com/embed/sOxy2gtPY7A"
+        }
+    },
+    {
+        "id": 5,
+        "titulo": "Power Rangers",
+        "duracion": 120,
+        "clasificacion": "B",
+        "genero": "Aventura",
+        "imagen": "power-rangers.png",
+        "fechaEstreno": "2017-10-22",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 5,
+            "director": "Dean Israelite",
+            "actores": "Bryan Cranston, Elizabeth Banks, Becky G, Dacre Montgomery",
+            "sinopsis": "Cinco adolescentes deben convertirse en algo extraordinario al enterarse que su pueblo, Angel Grove, y el mundo están a punto de ser aniquilados por una amenaza extraterrestre. Escogidos por el destino, nuestros héroes pronto descubren que son los únicos que pueden salvar el planeta…pero para hacerlo, deberán superar sus problemas de la vida real y, antes que sea demasiado tarde, unirse como los PowerRangers.",
+            "trailer": "https://www.youtube.com/embed/gemUEi0XMTg"
+        }
+    },
+    {
+        "id": 7,
+        "titulo": "Rapidos y Furiosos 8",
+        "duracion": 136,
+        "clasificacion": "B",
+        "genero": "Accion",
+        "imagen": "rapidos-furiosos.png",
+        "fechaEstreno": "2017-10-24",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 6,
+            "director": "F. Gary Gray",
+            "actores": "Dwayne Johnson,Michelle Rodriguez,Charlize Theron,Jason Statham,Vin Diesel",
+            "sinopsis": "Justo cuando Dom y Letty celebran su luna de miel, Brian y Mia se han retirado del juego y el resto del equipo se ha desintegrado en busca de una vida comun y corriente; una misteriosa mujer intentara seducir a Dom para convencerlo de regresar a la vida criminal que tanto lo acecha, traicionando a quienes lo rodean y enfrentandose a retos nunca antes vistos.",
+            "trailer": "https://www.youtube.com/embed/3KuazYQ1JuE"
+        }
+    },
+    {
+        "id": 8,
+        "titulo": "Guardianes de la Galaxia Vol 2",
+        "duracion": 136,
+        "clasificacion": "B",
+        "genero": "Accion",
+        "imagen": "guardianes-galaxia.png",
+        "fechaEstreno": "2017-10-24",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 7,
+            "director": "James Gunn",
+            "actores": "Dave Bautista,Bradley Cooper,Zoe Saldana,Vin Diesel,Chris Pratt",
+            "sinopsis": "Ambientada en el nuevo contexto sonoro de \"Awesome Mixtape #2\", GUARDIANES DE LA GALAXIA VOL. 2, de Marvel, continua las aventuras del equipo en su travesia por los confines del cosmos. Los Guardianes deberan luchar para mantener unida a su nueva familia mientras intentan resolver el misterio del verdadero linaje de Peter Quill. Viejos rivales se convertiran en nuevos aliados y los personajes favoritos de los comics clasicos acudiran en ayuda de nuestros heroes a medida que el Universo Cinematografico de Marvel continua expandiendose.",
+            "trailer": "https://www.youtube.com/embed/bBTtlcJwjSo"
+        }
+    },
+    {
+        "id": 9,
+        "titulo": "La Bella y La Bestia 3 de prueba",
+        "duracion": 132,
+        "clasificacion": "A",
+        "genero": "Infantil",
+        "imagen": "bella.png",
+        "fechaEstreno": "2024-07-15",
+        "estatus": "Activa",
+        "detalle": {
+            "id": 8,
+            "director": "Jordan Test",
+            "actores": "Samuel Test",
+            "sinopsis": "Kong: Test",
+            "trailer": "https://www.youtube.com/embed/86jhW2gPc84"
+        }
+    }
+]

@@ -30,6 +30,7 @@ import net.itinajero.app.cineapp.model.Pelicula;
 import net.itinajero.app.cineapp.service.FileService;
 import net.itinajero.app.cineapp.service.IDetallesService;
 import net.itinajero.app.cineapp.service.IPeliculasService;
+import net.itinajero.app.cineapp.utils.Utileria;
 
 @Controller
 @RequestMapping(value="/peliculas")
@@ -109,6 +110,8 @@ public class PeliculasController {
 		
 		if (!multiPart.isEmpty()) {
 			String nombreImagen = fileService.uploadFile(multiPart).getFilePath();
+			// Guardado en local
+			// String nombreImagen = Utileria.guardarImagen(multiPart, request);
 			if (nombreImagen!=null){ // La imagen si se subio				
 				pelicula.setImagen(nombreImagen); // Asignamos el nombre de la imagen
 			}	

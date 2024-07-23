@@ -70,7 +70,6 @@ export const NewMoviePage = () => {
     <div className="max-w-xl mx-auto mt-10">
       <h2 className="text-2xl mb-4">Crear Nueva Película</h2>
       <form onSubmit={handleFormSubmit}>
-        {/* Form fields */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Título

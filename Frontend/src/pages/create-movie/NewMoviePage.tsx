@@ -2,62 +2,114 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { z, ZodError } from "zod";
 import { toast } from "react-toastify";
+import { useCreateMovie } from "../../hooks/useCreateMovie";
+import { MovieFormData } from "../../interfaces";
 
 const movieSchema = z.object({
   titulo: z.string().min(3, "El título es obligatorio"),
   director: z.string().min(3, "El director es obligatorio"),
   fechaEstreno: z
-    .date({ required_error: "la fecha de estreno es obligatoria" })
-    .min(new Date(1920, 12, 28), {
-      message: "La fecha de estreno debe ser mayor a 1920-12-28",
-    }),
+    .string({ required_error: "La fecha de estreno es obligatoria" })
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Formato de fecha incorrecto")
+    .refine(
+      (date) => {
+        const parsedDate = new Date(date);
+        return parsedDate >= new Date(1920, 11, 28);
+      },
+      {
+        message: "La fecha de estreno debe ser mayor a 1920-12-28",
+      }
+    ),
   genero: z.string().min(3, "El género es obligatorio"),
   clasificacion: z
     .string()
     .min(1, "La clasificación es obligatoria")
     .max(1, "La clasificación debe ser de un solo caracter"),
   estatus: z.string().min(1, "El estatus es obligatorio"),
+  detalle: z.object({
+    actores: z.string().min(3, "Los actores son obligatorios"),
+    sinopsis: z.string().min(3, "La sinopsis es obligatoria"),
+    trailer: z.string().url("El trailer debe ser una URL válida"),
+  }),
 });
 
 export const NewMoviePage = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<MovieFormData>({
     titulo: "",
     director: "",
     fechaEstreno: "",
     genero: "",
     clasificacion: "",
     estatus: "",
+    actores: "",
+    sinopsis: "",
+    trailer: "",
+    imagen: null,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
+  const createMovieMutation = useCreateMovie();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      imagen: e.target.files ? e.target.files[0] : null,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const data = {
-        ...formData,
-        fechaEstreno: new Date(formData.fechaEstreno),
+        titulo: formData.titulo,
+        director: formData.director,
+        fechaEstreno: formData.fechaEstreno,
+        genero: formData.genero,
+        clasificacion: formData.clasificacion,
+        estatus: formData.estatus,
+        detalle: {
+          actores: formData.actores,
+          sinopsis: formData.sinopsis,
+          trailer: formData.trailer,
+        },
       };
+
       movieSchema.parse(data);
 
-      // Simulating save to database
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const formDataToSend = new FormData();
+      formDataToSend.append("jsonPelicula", JSON.stringify(data));
+      if (formData.imagen) {
+        formDataToSend.append("archivoImagen", formData.imagen);
+      }
 
-      toast.success("¡Película creada exitosamente!");
-      navigate("/");
+      createMovieMutation.mutate(formDataToSend, {
+        onSuccess: () => {
+          toast.success("¡Película creada exitosamente!");
+          navigate("/");
+        },
+        onError: (error) => {
+          toast.error(
+            error instanceof Error ? error.message : "Error desconocido"
+          );
+        },
+      });
     } catch (error) {
       if (error instanceof ZodError) {
         const fieldErrors: Record<string, string> = {};
         error.errors.forEach((err) => {
-          fieldErrors[err.path[0]] = err.message;
+          const path = err.path.join("_").toString();
+          fieldErrors[path] = err.message;
         });
         setErrors(fieldErrors);
       } else {
-        toast.error("Error al guardar en la base de datos");
+        toast.error((error as Error).message);
       }
     }
   };
@@ -67,7 +119,7 @@ export const NewMoviePage = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10">
+    <div className="max-w-xl mx-auto my-10 mb-15">
       <h2 className="text-2xl mb-4">Crear Nueva Película</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-4">
@@ -159,6 +211,61 @@ export const NewMoviePage = () => {
           {errors.estatus && (
             <p className="text-red-600 text-sm">{errors.estatus}</p>
           )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Actores
+          </label>
+          <input
+            type="text"
+            name="actores"
+            value={formData.actores}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+          {errors.detalle_actores && (
+            <p className="text-red-600 text-sm">{errors.detalle_actores}</p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Sinopsis
+          </label>
+          <textarea
+            name="sinopsis"
+            value={formData.sinopsis}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+          {errors.detalle_sinopsis && (
+            <p className="text-red-600 text-sm">{errors.detalle_sinopsis}</p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Trailer
+          </label>
+          <input
+            type="url"
+            name="trailer"
+            value={formData.trailer}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+          {errors.detalle_trailer && (
+            <p className="text-red-600 text-sm">{errors.detalle_trailer}</p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Imagen
+          </label>
+          <input
+            type="file"
+            name="imagen"
+            onChange={handleFileChange}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
         </div>
         <div className="flex justify-end">
           <Link to={"/"}>

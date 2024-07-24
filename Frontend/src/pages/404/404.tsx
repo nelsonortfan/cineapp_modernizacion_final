@@ -1,10 +1,6 @@
 import { Link, useRouteError } from "react-router-dom";
+import { RouteError } from "../../interfaces";
 
-interface RouteError {
-  statusText?: string;
-  data?: string;
-  status: number;
-}
 
 export const NotFoundPage = () => {
   const error = useRouteError();

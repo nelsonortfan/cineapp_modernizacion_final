@@ -1,6 +1,23 @@
-import movieList from "../../data/jsonListaPeliculas.json";
+import { useMovieData } from "../../hooks";
 
 export const MovieTable = () => {
+  const { data: movieList, isLoading, isError, error } = useMovieData();
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="spinner"></div>
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div>
+        Error al cargar los datos:{" "}
+        {error instanceof Error ? error.message : "Unknown error"}
+      </div>
+    );
+
   return (
     <div className="overflow-x-auto my-4">
       <table className="min-w-full bg-white border border-gray-200">
@@ -15,7 +32,7 @@ export const MovieTable = () => {
           </tr>
         </thead>
         <tbody>
-          {movieList.map((movie) => (
+          {movieList!.map((movie) => (
             <tr key={movie.id} className="border-b border-gray-200">
               <td className="px-4 py-2 border-r">{movie.titulo}</td>
               <td className="px-4 py-2 border-r">{movie.genero}</td>

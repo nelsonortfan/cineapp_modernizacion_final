@@ -1,10 +1,17 @@
 spring:
   application:
     name: cineapp
+  profiles:
+    active: prod
   datasource:
-    url: jdbc:mysql://localhost:3306/cineapp?useSSL=false
-    username: admin
-    password: admin
+# Local deploy  
+#    url: jdbc:mysql://localhost:3306/cineapp?useSSL=false
+#    username: admin
+#    password: admin
+# Prod deploy
+    url: jdbc:mysql://movies-service-db.cdxbqdojlywk.us-east-1.rds.amazonaws.com:3306/cineapp?useSSL=false
+    username: adminmovies
+    password: adminmovies
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -15,12 +22,12 @@ spring:
   jackson:
     date-format: yyyy-MM-dd
 server:
-  port: 8081
+  port: 8080
   
 aws:
   s3:
     bucketName: uploadmodernized
-    accessKey: xx
-    secretKey: xx
-    token: xx
+    accessKey: ASIA2D5IMTEEO42DXD63
+    secretKey: gGKBhZOEvCNByw4ybdiuQZNdaRoeEneGxWAsNvy4
+    token: IQoJb3JpZ2luX2VjEPH//////////wEaCXVzLXdlc3QtMiJIMEYCIQCa4biQ5bvvf3d4lnbSBDSjPHia7TV3t0cRhHOtsa0Y8gIhAL9sIKHcfirG/HjELEBtJdodz4482f12L3GMiwXs6F8VKr0CCMr//////////wEQAhoMNjk1NjAwOTc4MTg0IgzkOwx8QzZn8EQEe9gqkQLgQfmUXHEy4niZaKmZ7Q8DKtxM7CI9hiZpG6JUYHceJ9nDS7H+TfHOhdFf+ZTs8O5wd+Am8lMkaRY1SUOi+th8XjCD59nfivjdJCWT5xzcPhPGVDRy4hxwosztGDmrGnrkGEjxQMtF9gamsTRGTkFOteCo6WnyjhnQimNiJTIQ95EscMZVFjrejZ2hrJONDz4MM7kom0iLkJ3IcjZVy7IqVsUgSgoc60ji6rH4W8YQ3MPaN+IV6Ut0MG/RyhBW1wXzaJVRhjvVfHo0eKeQEjgRgJCJeM5NZg/AG34/5sNl0FLDW+N+AUkLCwlNLN/QmsBAQw70HMq47zGNo08yI1ZwN63WnsztBIdtaa68IA0XjMgwzvCLtQY6nAGnYVgA/7eRMDacmsavHQiIMJsi3ckw81GclNQa5fqDq/gJlEx8E1gwKW59lD/AV00ygLj8rBDN3zg+KsOOAOU8nFk4LX+9QCQQ8K6HWLY45HYMLuNaTzATTi11qR7nNBl8BHpTkvUlZx8bvfSuWkYoQk23d4MtNDaJ8xb8tPDn8myVyjmVcxuhKg6zHJCLIR+QL9YDFQStS9N3adA=
     region: us-east-1

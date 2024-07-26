@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,12 +26,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import net.itinajero.app.cineapp.model.Pelicula;
 import net.itinajero.app.cineapp.service.FileService;
 import net.itinajero.app.cineapp.service.IDetallesService;
 import net.itinajero.app.cineapp.service.IPeliculasService;
-import net.itinajero.app.cineapp.utils.Utileria;
 
 @Controller
 @RequestMapping(value="/peliculas")
@@ -62,7 +61,6 @@ public class PeliculasController {
 	@GetMapping(value = "/index")
 	public @ResponseBody List<Pelicula> mostrarIndex() {
 		List<Pelicula> lista = servicePeliculas.buscarTodas();
-		System.out.println(lista);
 		return lista;
 	}
 	
@@ -73,6 +71,7 @@ public class PeliculasController {
 	 * @return
 	 */
 	@GetMapping(value = "/indexPaginate")
+	@CrossOrigin("*")
 	public @ResponseBody Page<Pelicula> mostrarIndexPaginado(Pageable page) {
 		Page<Pelicula> lista = servicePeliculas.buscarTodas(page);
 		return lista;
@@ -83,6 +82,7 @@ public class PeliculasController {
 	 * @return
 	 */
 	@GetMapping(value = "/create")
+	
 	public String crear(@ModelAttribute Pelicula pelicula) {		
 		return "peliculas/formPelicula";
 	}
@@ -96,10 +96,10 @@ public class PeliculasController {
 	 * @param request
 	 * @return
 	 */
+	@CrossOrigin("*")
 	@PostMapping(value = "/save")
-	public @ResponseBody Pelicula guardar(String jsonPelicula,
+	public @ResponseBody Pelicula guardar(@RequestParam String jsonPelicula,
 			@RequestParam("archivoImagen") MultipartFile multiPart, HttpServletRequest request) {	
-		
 		Pelicula pelicula = null;
 	    try {
 	    	pelicula = new ObjectMapper().readValue(jsonPelicula, Pelicula.class);

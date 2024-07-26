@@ -7,7 +7,6 @@ import { MovieFormData } from "../../interfaces";
 
 const movieSchema = z.object({
   titulo: z.string().min(3, "El título es obligatorio"),
-  director: z.string().min(3, "El director es obligatorio"),
   fechaEstreno: z
     .string({ required_error: "La fecha de estreno es obligatoria" })
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Formato de fecha incorrecto")
@@ -30,6 +29,7 @@ const movieSchema = z.object({
     actores: z.string().min(3, "Los actores son obligatorios"),
     sinopsis: z.string().min(3, "La sinopsis es obligatoria"),
     trailer: z.string().url("El trailer debe ser una URL válida"),
+	director: z.string().min(3, "El director es obligatorio"),
   }),
 });
 
@@ -69,7 +69,6 @@ export const NewMoviePage = () => {
     try {
       const data = {
         titulo: formData.titulo,
-        director: formData.director,
         fechaEstreno: formData.fechaEstreno,
         genero: formData.genero,
         clasificacion: formData.clasificacion,
@@ -78,12 +77,15 @@ export const NewMoviePage = () => {
           actores: formData.actores,
           sinopsis: formData.sinopsis,
           trailer: formData.trailer,
+		  director: formData.director
         },
       };
 
       movieSchema.parse(data);
 
       const formDataToSend = new FormData();
+	  console.log(data);
+	  console.log(JSON.stringify(data));
       formDataToSend.append("jsonPelicula", JSON.stringify(data));
       if (formData.imagen) {
         formDataToSend.append("archivoImagen", formData.imagen);

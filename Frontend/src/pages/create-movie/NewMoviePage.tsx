@@ -29,7 +29,7 @@ const movieSchema = z.object({
     actores: z.string().min(3, "Los actores son obligatorios"),
     sinopsis: z.string().min(3, "La sinopsis es obligatoria"),
     trailer: z.string().url("El trailer debe ser una URL válida"),
-	director: z.string().min(3, "El director es obligatorio"),
+    director: z.string().min(3, "El director es obligatorio"),
   }),
 });
 
@@ -77,20 +77,15 @@ export const NewMoviePage = () => {
           actores: formData.actores,
           sinopsis: formData.sinopsis,
           trailer: formData.trailer,
-		  director: formData.director
+          director: formData.director
         },
       };
-
       movieSchema.parse(data);
-
       const formDataToSend = new FormData();
-	  console.log(data);
-	  console.log(JSON.stringify(data));
       formDataToSend.append("jsonPelicula", JSON.stringify(data));
       if (formData.imagen) {
         formDataToSend.append("archivoImagen", formData.imagen);
       }
-
       createMovieMutation.mutate(formDataToSend, {
         onSuccess: () => {
           toast.success("¡Película creada exitosamente!");
@@ -125,7 +120,7 @@ export const NewMoviePage = () => {
       <h2 className="text-2xl mb-4">Crear Nueva Película</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="titulo" className="block text-sm font-medium text-gray-700">
             Título
           </label>
           <input
@@ -134,13 +129,15 @@ export const NewMoviePage = () => {
             value={formData.titulo}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="titulo"
+            id="titulo"
           />
           {errors.titulo && (
             <p className="text-red-600 text-sm">{errors.titulo}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="director" className="block text-sm font-medium text-gray-700">
             Director
           </label>
           <input
@@ -149,13 +146,15 @@ export const NewMoviePage = () => {
             value={formData.director}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="director"
+            id="director"
           />
-          {errors.director && (
-            <p className="text-red-600 text-sm">{errors.director}</p>
+          {errors.detalle_director && (
+            <p className="text-red-600 text-sm">{errors.detalle_director}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="fechaEstreno" className="block text-sm font-medium text-gray-700">
             Fecha de Estreno
           </label>
           <input
@@ -164,13 +163,15 @@ export const NewMoviePage = () => {
             value={formData.fechaEstreno}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="fecha de estreno"
+            id="fechaEstreno"
           />
           {errors.fechaEstreno && (
             <p className="text-red-600 text-sm">{errors.fechaEstreno}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="genero" className="block text-sm font-medium text-gray-700">
             Género
           </label>
           <input
@@ -179,13 +180,14 @@ export const NewMoviePage = () => {
             value={formData.genero}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="genero"
           />
           {errors.genero && (
             <p className="text-red-600 text-sm">{errors.genero}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="clasificacion" className="block text-sm font-medium text-gray-700">
             Clasificación
           </label>
           <input
@@ -194,13 +196,14 @@ export const NewMoviePage = () => {
             value={formData.clasificacion}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="clasificacion"
           />
           {errors.clasificacion && (
             <p className="text-red-600 text-sm">{errors.clasificacion}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="estatus" className="block text-sm font-medium text-gray-700">
             Estatus
           </label>
           <input
@@ -209,13 +212,14 @@ export const NewMoviePage = () => {
             value={formData.estatus}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="estatus"
           />
           {errors.estatus && (
             <p className="text-red-600 text-sm">{errors.estatus}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="actores" className="block text-sm font-medium text-gray-700">
             Actores
           </label>
           <input
@@ -224,13 +228,14 @@ export const NewMoviePage = () => {
             value={formData.actores}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="actores"
           />
           {errors.detalle_actores && (
             <p className="text-red-600 text-sm">{errors.detalle_actores}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="sinopsis" className="block text-sm font-medium text-gray-700">
             Sinopsis
           </label>
           <textarea
@@ -238,13 +243,14 @@ export const NewMoviePage = () => {
             value={formData.sinopsis}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="sinopsis"
           />
           {errors.detalle_sinopsis && (
             <p className="text-red-600 text-sm">{errors.detalle_sinopsis}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="trailer" className="block text-sm font-medium text-gray-700">
             Trailer
           </label>
           <input
@@ -253,13 +259,14 @@ export const NewMoviePage = () => {
             value={formData.trailer}
             onChange={handleChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="trailer"
           />
           {errors.detalle_trailer && (
             <p className="text-red-600 text-sm">{errors.detalle_trailer}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label htmlFor="imagen" className="block text-sm font-medium text-gray-700">
             Imagen
           </label>
           <input
@@ -267,6 +274,8 @@ export const NewMoviePage = () => {
             name="imagen"
             onChange={handleFileChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            aria-label="imagen"
+            id="imagen"
           />
         </div>
         <div className="flex justify-end">
@@ -274,6 +283,7 @@ export const NewMoviePage = () => {
             <button
               type="button"
               className="mr-2 border border-rose-900 text-rose-900 px-4 py-2 rounded-md hover:bg-red-800 hover:text-white active:bg-red-950"
+              aria-label="cancelar"
             >
               Cancelar
             </button>
@@ -281,6 +291,7 @@ export const NewMoviePage = () => {
           <button
             type="submit"
             className="bg-amber-500 text-stone-50 px-4 py-2 rounded-md hover:bg-amber-600 active:bg-amber-700"
+            aria-label="Guardar"
           >
             Guardar
           </button>

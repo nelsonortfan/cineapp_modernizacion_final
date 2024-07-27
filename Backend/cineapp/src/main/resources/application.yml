@@ -10,8 +10,8 @@ spring:
 #    password: admin
 # Prod deploy
     url: jdbc:mysql://movies-service-db.cdxbqdojlywk.us-east-1.rds.amazonaws.com:3306/cineapp?useSSL=false
-    username: adminmovies
-    password: adminmovies
+    username: admixxx
+    password: admixxx
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
